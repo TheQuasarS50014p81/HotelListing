@@ -42,7 +42,7 @@ namespace HotelListing.Services
                 jwtSetting.GetSection("lifetime").Value));
 
             var token = new JwtSecurityToken(
-                issuer: jwtSetting.GetSection("validIssuer").Value,
+                issuer: jwtSetting.GetSection("Issuer").Value,
                 claims: claims,
                 expires: expiration,
                 signingCredentials: signingCredentials

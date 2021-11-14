@@ -32,9 +32,10 @@ namespace HotelListing
                 o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(o => {
-                o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                o.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = jwtSettings.GetSection("Issuer").Value,
