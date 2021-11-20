@@ -93,7 +93,7 @@ namespace HotelListing.Repository
             await _db.AddAsync(entity);
         }
 
-        public async Task insertRange(IEnumerable<T> entities)
+        public async Task InsertRange(IEnumerable<T> entities)
         {
             await _db.AddRangeAsync(entities);
         }

@@ -23,7 +23,7 @@ namespace HotelListing.IRepository
 
         Task<T> Get(Expression<Func<T, bool>> expression, List<String> includes = null);
         Task Insert(T entity);
-        Task insertRange(IEnumerable<T> entities);
+        Task InsertRange(IEnumerable<T> entities);
         Task Delete(int id);
         void DeleteRange(IEnumerable<T> entities);
         void Update(T entity);
