@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
+using HotelListing.Core.DTOs;
+using HotelListing.Core.Services;
 using HotelListing.Data;
-using HotelListing.Models;
-using HotelListing.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelListing.Controllers
@@ -40,9 +38,9 @@ namespace HotelListing.Controllers
         public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
         {
             _logger.LogInformation($"Registration Attempt for {userDTO.Email} ");
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState); 
+                return BadRequest(ModelState);
             }
 
             try
@@ -51,9 +49,9 @@ namespace HotelListing.Controllers
                 user.UserName = userDTO.Email;
                 var result = await _userManager.CreateAsync(user, userDTO.Password);
 
-                if(!result.Succeeded)
+                if (!result.Succeeded)
                 {
-                    foreach(var error in result.Errors)
+                    foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError(error.Code, error.Description);
                     }
@@ -63,7 +61,7 @@ namespace HotelListing.Controllers
                 await _userManager.AddToRolesAsync(user, userDTO.Roles);
                 return Accepted();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, $"Something Went Wrong in the {nameof(Register)}");
                 return Problem($"Something Went Wrong in the {nameof(Register)}", statusCode: 500);
